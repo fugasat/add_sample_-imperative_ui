@@ -7,18 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    @IBOutlet weak var textField1: UITextField!
-    @IBOutlet weak var textField2: UITextField!
-    @IBOutlet weak var labelAnswer: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-    @IBAction func buttonTouched(_ sender: UIButton) {
+class AppManager: ObservableObject {
+    func add(textField1: UITextField!, textField2: UITextField!, labelAnswer: UILabel!) {
         guard let int1 = Int(textField1.text!) else {
            return
         }
@@ -26,6 +16,22 @@ class ViewController: UIViewController {
            return
         }
         labelAnswer.text = String(int1 + int2)
+    }
+}
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var textField1: UITextField!
+    @IBOutlet weak var textField2: UITextField!
+    @IBOutlet weak var labelAnswer: UILabel!
+    let appManager = AppManager()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    @IBAction func buttonTouched(_ sender: UIButton) {
+        appManager.add(textField1: textField1, textField2: textField2, labelAnswer: labelAnswer)
     }
     
 }
